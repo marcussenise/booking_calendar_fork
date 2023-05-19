@@ -1,5 +1,5 @@
-import 'package:booking_calendar/src/components/common_card.dart';
 import 'package:flutter/material.dart';
+import 'common_card.dart';
 
 class BookingSlot extends StatelessWidget {
   const BookingSlot({
