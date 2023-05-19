@@ -156,7 +156,8 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
     controller = context.watch<BookingController>();
 
     return Consumer<BookingController>(
-      builder: (_, controller, __) => Padding(
+      builder: (_, controller, __) => SingleChildScrollView(
+          child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: (controller.isUploading)
             ? widget.uploadingWidget ?? const BookingDialog()
@@ -165,7 +166,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                   CommonCard(
                     child: TableCalendar(
                       availableCalendarFormats: const {
-                        CalendarFormat.month : 'Mês'
+                        CalendarFormat.month: 'Mês'
                       },
                       startingDayOfWeek: widget.startingDayOfWeek?.toTC() ??
                           tc.StartingDayOfWeek.monday,
@@ -354,7 +355,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                   ),
                 ],
               ),
-      ),
+      )),
     );
   }
 }
