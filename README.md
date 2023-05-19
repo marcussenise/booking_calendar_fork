@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # example
 
 A new Flutter project.
