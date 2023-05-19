@@ -156,12 +156,13 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
     controller = context.watch<BookingController>();
 
     return Consumer<BookingController>(
-      builder: (_, controller, __) => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: (controller.isUploading)
-              ? widget.uploadingWidget ?? const BookingDialog()
-              : SingleChildScrollView(
-                  child: Column(
+      builder: (_, controller, __) => ListView(
+        children: [
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: (controller.isUploading)
+                  ? widget.uploadingWidget ?? const BookingDialog()
+                  : Column(
                     children: [
                       CommonCard(
                         child: TableCalendar(
@@ -172,7 +173,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                               tc.StartingDayOfWeek.monday,
                           holidayPredicate: (day) {
                             if (widget.disabledDates == null) return false;
-
+                  
                             bool isHoliday = false;
                             for (var holiday in widget.disabledDates!) {
                               if (isSameDay(day, holiday)) {
@@ -184,7 +185,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                           enabledDayPredicate: (day) {
                             if (widget.disabledDays == null &&
                                 widget.disabledDates == null) return true;
-
+                  
                             bool isEnabled = true;
                             if (widget.disabledDates != null) {
                               for (var holiday in widget.disabledDates!) {
@@ -198,7 +199,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                               isEnabled =
                                   !widget.disabledDays!.contains(day.weekday);
                             }
-
+                  
                             return isEnabled;
                           },
                           locale: widget.locale,
@@ -245,20 +246,20 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                                   color: widget.availableSlotColor ??
                                       Colors.greenAccent,
                                   text:
-                                      widget.availableSlotText ?? "Available"),
+                                      widget.availableSlotText ?? "Disponível"),
                               BookingExplanation(
                                   color: widget.selectedSlotColor ??
                                       Colors.orangeAccent,
-                                  text: widget.selectedSlotText ?? "Selected"),
+                                  text: widget.selectedSlotText ?? "Selecionado"),
                               BookingExplanation(
                                   color: widget.bookedSlotColor ??
                                       Colors.redAccent,
-                                  text: widget.bookedSlotText ?? "Booked"),
+                                  text: widget.bookedSlotText ?? "Reservado"),
                               if (widget.hideBreakTime != null &&
                                   widget.hideBreakTime == false)
                                 BookingExplanation(
                                     color: widget.pauseSlotColor ?? Colors.grey,
-                                    text: widget.pauseSlotText ?? "Break"),
+                                    text: widget.pauseSlotText ?? "Pausa"),
                             ],
                           ),
                       const SizedBox(height: 8),
@@ -272,77 +273,83 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                                   child: Text(snapshot.error.toString()),
                                 );
                           }
-
+                  
                           if (!snapshot.hasData) {
                             return widget.loadingWidget ??
                                 const Center(
                                     child: CircularProgressIndicator());
                           }
-
+                  
                           ///this snapshot should be converted to List<DateTimeRange>
                           final data = snapshot.requireData;
                           controller.generateBookedSlots(
                               widget.convertStreamResultToDateTimeRanges(
                                   streamResult: data));
-
-                          return Expanded(
-                            child: (widget.wholeDayIsBookedWidget != null &&
-                                    controller.isWholeDayBooked())
-                                ? widget.wholeDayIsBookedWidget!
-                                : GridView.builder(
-                                    physics: widget.gridScrollPhysics ??
-                                        const BouncingScrollPhysics(),
-                                    itemCount:
-                                        controller.allBookingSlots.length,
-                                    itemBuilder: (context, index) {
-                                      TextStyle? getTextStyle() {
-                                        if (controller.isSlotBooked(index)) {
-                                          return widget.bookedSlotTextStyle;
-                                        } else if (index ==
-                                            controller.selectedSlot) {
-                                          return widget.selectedSlotTextStyle;
-                                        } else {
-                                          return widget.availableSlotTextStyle;
-                                        }
-                                      }
-
-                                      final slot = controller.allBookingSlots
-                                          .elementAt(index);
-                                      return BookingSlot(
-                                        hideBreakSlot: widget.hideBreakTime,
-                                        pauseSlotColor: widget.pauseSlotColor,
-                                        availableSlotColor:
-                                            widget.availableSlotColor,
-                                        bookedSlotColor: widget.bookedSlotColor,
-                                        selectedSlotColor:
-                                            widget.selectedSlotColor,
-                                        isPauseTime:
-                                            controller.isSlotInPauseTime(slot),
-                                        isBooked:
-                                            controller.isSlotBooked(index),
-                                        isSelected:
-                                            index == controller.selectedSlot,
-                                        onTap: () =>
-                                            controller.selectSlot(index),
-                                        child: Center(
-                                          child: Text(
-                                            widget.formatDateTime?.call(slot) ??
-                                                BookingUtil.formatDateTime(
-                                                    slot),
-                                            style: getTextStyle(),
+                  
+                          return Column(
+                              mainAxisSize: MainAxisSize.min,                              
+                              children: [
+                                Flexible(
+                                  child: (widget.wholeDayIsBookedWidget != null &&
+                                          controller.isWholeDayBooked())
+                                      ? widget.wholeDayIsBookedWidget!
+                                      : GridView.builder(
+                                        shrinkWrap: true,
+                                          physics: widget.gridScrollPhysics ??
+                                              const BouncingScrollPhysics(),
+                                          itemCount:
+                                              controller.allBookingSlots.length,
+                                          itemBuilder: (context, index) {
+                                            TextStyle? getTextStyle() {
+                                              if (controller.isSlotBooked(index)) {
+                                                return widget.bookedSlotTextStyle;
+                                              } else if (index ==
+                                                  controller.selectedSlot) {
+                                                return widget.selectedSlotTextStyle;
+                                              } else {
+                                                return widget.availableSlotTextStyle;
+                                              }
+                                            }
+                                              
+                                            final slot = controller.allBookingSlots
+                                                .elementAt(index);
+                                            return BookingSlot(
+                                              hideBreakSlot: widget.hideBreakTime,
+                                              pauseSlotColor: widget.pauseSlotColor,
+                                              availableSlotColor:
+                                                  widget.availableSlotColor,
+                                              bookedSlotColor: widget.bookedSlotColor,
+                                              selectedSlotColor:
+                                                  widget.selectedSlotColor,
+                                              isPauseTime:
+                                                  controller.isSlotInPauseTime(slot),
+                                              isBooked:
+                                                  controller.isSlotBooked(index),
+                                              isSelected:
+                                                  index == controller.selectedSlot,
+                                              onTap: () =>
+                                                  controller.selectSlot(index),
+                                              child: Center(
+                                                child: Text(
+                                                  widget.formatDateTime?.call(slot) ??
+                                                      BookingUtil.formatDateTime(
+                                                          slot),
+                                                  style: getTextStyle(),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount:
+                                                widget.bookingGridCrossAxisCount ?? 3,
+                                            childAspectRatio:
+                                                widget.bookingGridChildAspectRatio ??
+                                                    1.5,
                                           ),
                                         ),
-                                      );
-                                    },
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount:
-                                          widget.bookingGridCrossAxisCount ?? 3,
-                                      childAspectRatio:
-                                          widget.bookingGridChildAspectRatio ??
-                                              1.5,
-                                    ),
-                                  ),
+                                ),
+                              ],
                           );
                         },
                       ),
@@ -350,7 +357,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                         height: 16,
                       ),
                       CommonButton(
-                        text: widget.bookingButtonText ?? 'BOOK',
+                        text: widget.bookingButtonText ?? 'Reservar',
                         onTap: () async {
                           controller.toggleUploading();
                           await widget.uploadBooking(
@@ -363,8 +370,9 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                         buttonActiveColor: widget.bookingButtonColor,
                       ),
                     ],
-                  ),
-                )),
+                  )),
+        ],
+      ),
     );
   }
 }
