@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import '../model/booking_service.dart';
+import '../model/booking_service_model.dart';
 import '../util/booking_util.dart';
 
 class BookingController extends ChangeNotifier {
-  BookingService bookingService;
+  BookingServiceModel bookingService;
   BookingController({required this.bookingService, this.pauseSlots}) {
     serviceOpening = bookingService.bookingStart;
     serviceClosing = bookingService.bookingEnd;
@@ -118,7 +118,7 @@ class BookingController extends ChangeNotifier {
     }
   }
 
-  BookingService generateNewBookingForUploading() {
+  BookingServiceModel generateNewBookingForUploading() {
     final bookingDate = allBookingSlots.elementAt(selectedSlot);
     bookingService
       ..bookingStart = (bookingDate)

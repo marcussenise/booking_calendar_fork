@@ -1,5 +1,5 @@
 import 'package:example/src/core/booking_calendar.dart';
-import 'package:example/src/model/booking_service.dart';
+import 'package:example/src/model/booking_service_model.dart';
 import 'package:example/src/model/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -19,18 +19,25 @@ class BookingCalendarDemoApp extends StatefulWidget {
 
 class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
   final now = DateTime.now();
-  late BookingService mockBookingService;
+  late BookingServiceModel mockBookingService;
 
   @override
   void initState() {
     super.initState();
     // DateTime.now().startOfDay
     // DateTime.now().endOfDay
-    mockBookingService = BookingService(
-        serviceName: 'Mock Service',
-        serviceDuration: 30,
+    mockBookingService = BookingServiceModel(
+        carro: 'Renault Zoe def6523',
+        data: "04/06/2023",
+        horario: "17:11",
+        localRecarga: "CEP: 70294080 Brasília",
+        statusRecarga: "solicitado",
+        nome: "teste",
+        telefone: "(61) 9999-9999",
+        bookingStart: DateTime(now.year, now.month, now.day, 8, 0),
         bookingEnd: DateTime(now.year, now.month, now.day, 18, 0),
-        bookingStart: DateTime(now.year, now.month, now.day, 8, 0));
+        serviceDuration: 30,
+      );
   }
 
   Stream<dynamic>? getBookingStreamMock(
@@ -39,7 +46,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
   }
 
   Future<dynamic> uploadBookingMock(
-      {required BookingService newBooking}) async {
+      {required BookingServiceModel newBooking}) async {
     await Future.delayed(const Duration(seconds: 1));
     converted.add(DateTimeRange(
         start: newBooking.bookingStart, end: newBooking.bookingEnd));

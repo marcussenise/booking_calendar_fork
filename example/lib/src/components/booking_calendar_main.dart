@@ -5,7 +5,7 @@ import 'package:table_calendar/table_calendar.dart' as tc
     show StartingDayOfWeek;
 
 import '../core/booking_controller.dart';
-import '../model/booking_service.dart';
+import '../model/booking_service_model.dart';
 import '../model/enums.dart' as bc;
 import '../util/booking_util.dart';
 import 'booking_dialog.dart';
@@ -52,7 +52,7 @@ class BookingCalendarMain extends StatefulWidget {
 
   final Stream<dynamic>? Function(
       {required DateTime start, required DateTime end}) getBookingStream;
-  final Future<dynamic> Function({required BookingService newBooking})
+  final Future<dynamic> Function({required BookingServiceModel newBooking})
       uploadBooking;
   final List<DateTimeRange> Function({required dynamic streamResult})
       convertStreamResultToDateTimeRanges;

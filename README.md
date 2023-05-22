@@ -3,7 +3,12 @@
 A new Flutter project.
 
 ## Getting Started
+--------------
+Mudanças feitas para Eleventec:
+- class BookingService -> class BookingServiceModel
+- BookingServiceModel de acordo com o SolicitarRecargaModel do app principal
 
+----------
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../components/booking_calendar_main.dart';
-import '../model/booking_service.dart';
+import '../model/booking_service_model.dart';
 import '../model/enums.dart';
 import 'booking_controller.dart';
 
@@ -50,7 +50,7 @@ class BookingCalendar extends StatelessWidget {
   ///initial [BookingService] which contains the details of the service,
   ///and this service will get additional two parameters:
   ///the [BookingService.bookingStart] and [BookingService.bookingEnd] date of the booking
-  final BookingService bookingService;
+  final BookingServiceModel bookingService;
 
   ///this function returns a [Stream] which will be passed to the [StreamBuilder],
   ///so we can track realtime changes in our Booking Calendar
@@ -71,7 +71,7 @@ class BookingCalendar extends StatelessWidget {
   /// and the updated [BookingService] will be passed to the parameters and you can use this
   /// in your HTTP function to upload the data to the database ([BookingService] implements JSON serializable)
 
-  final Future<dynamic> Function({required BookingService newBooking})
+  final Future<dynamic> Function({required BookingServiceModel newBooking})
       uploadBooking;
 
   ///this will be display above the Booking Slots, which can be used to give the user
