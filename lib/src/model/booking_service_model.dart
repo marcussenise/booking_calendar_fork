@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-
 import 'dart:convert';
 
 class BookingServiceModel {
@@ -57,7 +56,7 @@ class BookingServiceModel {
       'notaRecarga': notaRecarga,
       'antesRecargaUrl': antesRecargaUrl,
       'depoisRecargaUrl': depoisRecargaUrl,
-      'serviceDuration' : serviceDuration,
+      'serviceDuration': serviceDuration,
     };
   }
 
@@ -67,26 +66,36 @@ class BookingServiceModel {
       carro: map['carro'] as String,
       data: map['data'] as String,
       horario: map['horario'] as String,
-      bookingStart: DateTime.fromMillisecondsSinceEpoch(map['bookingStart'] as int),
+      bookingStart:
+          DateTime.fromMillisecondsSinceEpoch(map['bookingStart'] as int),
       bookingEnd: DateTime.fromMillisecondsSinceEpoch(map['bookingEnd'] as int),
       localRecarga: map['localRecarga'] as String,
-      observacao: map['observacao'] != null ? map['observacao'] as String : null,
-      motivoRejeicao: map['motivoRejeicao'] != null ? map['motivoRejeicao'] as String : null,
+      observacao:
+          map['observacao'] != null ? map['observacao'] as String : null,
+      motivoRejeicao: map['motivoRejeicao'] != null
+          ? map['motivoRejeicao'] as String
+          : null,
       statusRecarga: map['statusRecarga'] as String,
       nome: map['nome'] as String,
       telefone: map['telefone'] as String,
-      notaRecarga: map['notaRecarga'] != null ? map['notaRecarga'] as double : null,
-      antesRecargaUrl: map['antesRecargaUrl'] != null ? map['antesRecargaUrl'] as String : null,
-      depoisRecargaUrl: map['depoisRecargaUrl'] != null ? map['depoisRecargaUrl'] as String : null,
+      notaRecarga:
+          map['notaRecarga'] != null ? map['notaRecarga'] as double : null,
+      antesRecargaUrl: map['antesRecargaUrl'] != null
+          ? map['antesRecargaUrl'] as String
+          : null,
+      depoisRecargaUrl: map['depoisRecargaUrl'] != null
+          ? map['depoisRecargaUrl'] as String
+          : null,
       serviceDuration: map['serviceDuration'] as int,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory BookingServiceModel.fromJson(String source) => BookingServiceModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory BookingServiceModel.fromJson(String source) =>
+      BookingServiceModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  @override 
-  String toString() => 'SolicitarRecargaModel(key: $key, carro: $carro, data: $data, horario: $horario, localRecarga: $localRecarga, observacao: $observacao, motivoRejeicao: $motivoRejeicao, statusRecarga: $statusRecarga, nome: $nome, telefone: $telefone, notaRecarga: $notaRecarga, antesRecargaUrl: $antesRecargaUrl, depoisRecargaUrl: $depoisRecargaUrl, serviceDuration: $serviceDuration)';
-
+  @override
+  String toString() =>
+      'BookingServiceModel(key: $key, carro: $carro, data: $data, horario: $horario, localRecarga: $localRecarga, observacao: $observacao, motivoRejeicao: $motivoRejeicao, statusRecarga: $statusRecarga, nome: $nome, telefone: $telefone, notaRecarga: $notaRecarga, antesRecargaUrl: $antesRecargaUrl, depoisRecargaUrl: $depoisRecargaUrl, serviceDuration: $serviceDuration, bookingStart: $bookingStart, bookingEnd: $bookingEnd)';
 }

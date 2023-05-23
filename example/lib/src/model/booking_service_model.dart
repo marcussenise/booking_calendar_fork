@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
-
 import 'dart:convert';
 
 class BookingServiceModel {
@@ -86,7 +84,8 @@ class BookingServiceModel {
 
   factory BookingServiceModel.fromJson(String source) => BookingServiceModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  @override 
-  String toString() => 'SolicitarRecargaModel(key: $key, carro: $carro, data: $data, horario: $horario, localRecarga: $localRecarga, observacao: $observacao, motivoRejeicao: $motivoRejeicao, statusRecarga: $statusRecarga, nome: $nome, telefone: $telefone, notaRecarga: $notaRecarga, antesRecargaUrl: $antesRecargaUrl, depoisRecargaUrl: $depoisRecargaUrl, serviceDuration: $serviceDuration)';
+  @override
+  String toString() =>
+      'BookingServiceModel(key: $key, carro: $carro, data: $data, horario: $horario, localRecarga: $localRecarga, observacao: $observacao, motivoRejeicao: $motivoRejeicao, statusRecarga: $statusRecarga, nome: $nome, telefone: $telefone, notaRecarga: $notaRecarga, antesRecargaUrl: $antesRecargaUrl, depoisRecargaUrl: $depoisRecargaUrl, serviceDuration: $serviceDuration, bookingStart: $bookingStart, bookingEnd: $bookingEnd)';
 
 }
