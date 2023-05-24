@@ -45,8 +45,8 @@ class BookingServiceModel {
       'carro': carro,
       'data': data,
       'horario': horario,
-      'bookingStart': bookingStart.millisecondsSinceEpoch,
-      'bookingEnd': bookingEnd.millisecondsSinceEpoch,
+      'bookingStart': bookingStart,
+      'bookingEnd': bookingEnd,
       'localRecarga': localRecarga,
       'observacao': observacao,
       'motivoRejeicao': motivoRejeicao,
@@ -66,9 +66,8 @@ class BookingServiceModel {
       carro: map['carro'] as String,
       data: map['data'] as String,
       horario: map['horario'] as String,
-      bookingStart:
-          DateTime.fromMillisecondsSinceEpoch(map['bookingStart'] as int),
-      bookingEnd: DateTime.fromMillisecondsSinceEpoch(map['bookingEnd'] as int),
+      bookingStart: DateTime.parse(map['bookingStart'] as String),
+      bookingEnd: DateTime.parse(map['bookingEnd'] as String),
       localRecarga: map['localRecarga'] as String,
       observacao:
           map['observacao'] != null ? map['observacao'] as String : null,
