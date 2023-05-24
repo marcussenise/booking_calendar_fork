@@ -5,8 +5,8 @@ import 'dart:convert';
 class BookingServiceModel {
   final String? key;
   final String carro;
-  final String data;
-  final String horario;
+  String data;
+  String horario;
   DateTime bookingStart;
   DateTime bookingEnd;
   final int serviceDuration;
