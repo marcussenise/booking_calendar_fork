@@ -51,7 +51,8 @@ class BookingController extends ChangeNotifier {
   void _generateBookingSlots() {
     allBookingSlots.clear();
     _allBookingSlots = List.generate(
-        _maxServiceFitInADay(),
+        48,
+        //_maxServiceFitInADay(),
         (index) => base
             .add(Duration(minutes: bookingService.serviceDuration) * index));
   }
