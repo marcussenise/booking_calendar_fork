@@ -51,7 +51,8 @@ class BookingController extends ChangeNotifier {
   void _generateBookingSlots() {
     allBookingSlots.clear();
     _allBookingSlots = List.generate(
-        _maxServiceFitInADay(),
+        48,
+        //_maxServiceFitInADay(),
         (index) => base
             .add(Duration(minutes: bookingService.serviceDuration) * index));
   }
@@ -70,11 +71,11 @@ class BookingController extends ChangeNotifier {
   int _maxServiceFitInADay() {
     ///if no serviceOpening and closing was provided we will calculate with 00:00-24:00
     int openingHours = 24;
-    // if (serviceOpening != null && serviceClosing != null) {
-    //   openingHours = DateTimeRange(start: serviceOpening!, end: serviceClosing!)
-    //       .duration
-    //       .inHours;
-    // }
+    if (serviceOpening != null && serviceClosing != null) {
+      openingHours = DateTimeRange(start: serviceOpening!, end: serviceClosing!)
+          .duration
+          .inHours;
+    }
 
     ///round down if not the whole service would fit in the last hours
     return ((openingHours * 60) / bookingService.serviceDuration).floor();
