@@ -1,9 +1,9 @@
 import 'package:example/src/core/booking_calendar.dart';
+import 'package:example/src/core/booking_controller.dart';
 import 'package:example/src/model/booking_service_model.dart';
 import 'package:example/src/model/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 
 void main() {
   initializeDateFormatting()
@@ -20,6 +20,7 @@ class BookingCalendarDemoApp extends StatefulWidget {
 class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
   final now = DateTime.now();
   late BookingServiceModel mockBookingService;
+  late BookingController bookingController = BookingController(bookingService: mockBookingService);
 
   @override
   void initState() {
@@ -27,17 +28,17 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     // DateTime.now().startOfDay
     // DateTime.now().endOfDay
     mockBookingService = BookingServiceModel(
-        carro: 'Renault Zoe def6523',
-        data: "04/06/2023",
-        horario: "17:11",
-        localRecarga: "CEP: 70294080 Brasília",
-        statusRecarga: "solicitado",
-        nome: "teste",
-        telefone: "(61) 9999-9999",
-        bookingStart: DateTime(now.year, now.month, now.day, 8, 0),
-        bookingEnd: DateTime(now.year, now.month, now.day, 18, 0),
-        serviceDuration: 30,
-      );
+      carro: 'Renault Zoe def6523',
+      data: "04/06/2023",
+      horario: "17:11",
+      localRecarga: "CEP: 70294080 Brasília",
+      statusRecarga: "solicitado",
+      nome: "teste",
+      telefone: "(61) 9999-9999",
+      bookingEnd: DateTime(now.year, now.month, now.day, 23, 30),
+      bookingStart: DateTime(now.year, now.month, now.day, 0, 0),
+      serviceDuration: 30,
+    );
   }
 
   Stream<dynamic>? getBookingStreamMock(
@@ -45,12 +46,27 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     return Stream.value([]);
   }
 
-  Future<dynamic> uploadBookingMock(
-      {required BookingServiceModel newBooking}) async {
+  Future<dynamic> uploadBookingMock({required BookingServiceModel newBooking, required int selectedSlot}) async {
+    mockBookingService.bookingStart = newBooking.bookingStart;
+    mockBookingService.bookingEnd = newBooking.bookingStart.add(const Duration(hours: 4));
+
+    // for(selectedSlot; selectedSlot<(selectedSlot+7); selectedSlot++){
+    //   if(bookingController.isSlotBooked(selectedSlot) == true){
+    //     return SnackBar(content: const Text('As 4 horas seguintes ao pedido devem estar livre.'),
+    //     );
+    //   }
+    // }
+    //se selecionamos o index 0, até o index 7 ficará travado, dando assim as 4h
+    //temos que verificar se os próximos 7 slots estão booked ou não
+    
+    // print(bookingController.isSlotBooked(selectedSlot));
+    print(bookingController.bookedSlots);
+    
+
     await Future.delayed(const Duration(seconds: 1));
-    converted.add(DateTimeRange(
-        start: newBooking.bookingStart, end: newBooking.bookingEnd));
-    // print('${newBooking.toJson()} has been uploaded');
+    converted.add(DateTimeRange(start: newBooking.bookingStart, end: newBooking.bookingEnd));
+    // print('converted: $converted');
+    // print('${mockBookingService.toJson()} has been uploaded');
   }
 
   List<DateTimeRange> converted = [];
@@ -59,26 +75,29 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     ///here you can parse the streamresult and convert to [List<DateTimeRange>]
     ///take care this is only mock, so if you add today as disabledDays it will still be visible on the first load
     ///disabledDays will properly work with real data
-    DateTime first = now;
-    DateTime tomorrow = now.add(const Duration(days: 1));
-    DateTime second = now.add(const Duration(minutes: 55));
-    DateTime third = now.subtract(const Duration(minutes: 240));
-    DateTime fourth = now.subtract(const Duration(minutes: 500));
-    converted.add(
-        DateTimeRange(start: first, end: now.add(const Duration(minutes: 30))));
-    converted.add(DateTimeRange(
-        start: second, end: second.add(const Duration(minutes: 23))));
-    converted.add(DateTimeRange(
-        start: third, end: third.add(const Duration(minutes: 15))));
-    converted.add(DateTimeRange(
-        start: fourth, end: fourth.add(const Duration(minutes: 50))));
+    // DateTime first = now;
+    // DateTime tomorrow = now.add(const Duration(days: 1));
+    // DateTime second = now.add(const Duration(minutes: 55));
+    // DateTime third = now.subtract(const Duration(minutes: 240));
+    // DateTime fourth = now.subtract(const Duration(minutes: 500));
+    // converted.add(
+    //     DateTimeRange(start: first, end: now.add(const Duration(minutes: 30))));
+    // converted.add(DateTimeRange(
+    //     start: second, end: second.add(const Duration(minutes: 23))));
+    // converted.add(DateTimeRange(
+    //     start: third, end: third.add(const Duration(minutes: 15))));
+    // converted.add(DateTimeRange(
+    //     start: fourth, end: fourth.add(const Duration(minutes: 50))));
 
-    //book whole day example
-    converted.add(DateTimeRange(
-        start: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 5, 0),
-        end: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 23, 0)));
-    return converted;
-  }
+    // //book whole day example
+    // converted.add(DateTimeRange(
+    //     start: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 5, 0),
+    //     end: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 23, 0)));
+      DateTimeRange(
+          start: DateTime(now.year, now.month, now.day, 12, 0),
+           end: DateTime(now.year, now.month, now.day, 13, 0));
+      return converted;
+   }
 
   List<DateTimeRange> generatePauseSlots() {
     return [

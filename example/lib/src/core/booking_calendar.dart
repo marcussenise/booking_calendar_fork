@@ -71,7 +71,7 @@ class BookingCalendar extends StatelessWidget {
   /// and the updated [BookingService] will be passed to the parameters and you can use this
   /// in your HTTP function to upload the data to the database ([BookingService] implements JSON serializable)
 
-  final Future<dynamic> Function({required BookingServiceModel newBooking})
+  final Future<dynamic> Function({required BookingServiceModel newBooking, required int selectedSlot})
       uploadBooking;
 
   ///this will be display above the Booking Slots, which can be used to give the user

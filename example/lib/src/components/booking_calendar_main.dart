@@ -52,8 +52,7 @@ class BookingCalendarMain extends StatefulWidget {
 
   final Stream<dynamic>? Function(
       {required DateTime start, required DateTime end}) getBookingStream;
-  final Future<dynamic> Function({required BookingServiceModel newBooking})
-      uploadBooking;
+  final Future<dynamic> Function({required BookingServiceModel newBooking, required int selectedSlot}) uploadBooking;
   final List<DateTimeRange> Function({required dynamic streamResult})
       convertStreamResultToDateTimeRanges;
 
@@ -361,8 +360,9 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                         onTap: () async {
                           controller.toggleUploading();
                           await widget.uploadBooking(
-                              newBooking:
-                                  controller.generateNewBookingForUploading());
+                              newBooking: controller.generateNewBookingForUploading(),
+                              selectedSlot: controller.selectedSlot
+                              );
                           controller.toggleUploading();
                           controller.resetSelectedSlot();
                         },
