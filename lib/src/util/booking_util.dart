@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class BookingUtil {
-  BookingUtil._();
+  BookingUtil();
 
   static bool isOverLapping(DateTime firstStart, DateTime firstEnd,
       DateTime secondStart, DateTime secondEnd) {
