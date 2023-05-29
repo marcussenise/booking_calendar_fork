@@ -235,7 +235,8 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      widget.bookingExplanation ??
+                      widget.bookingExplanation ?? const SizedBox.shrink(),
+                      const SizedBox(height: 8),
                           Wrap(
                             alignment: WrapAlignment.spaceAround,
                             spacing: 8.0,
