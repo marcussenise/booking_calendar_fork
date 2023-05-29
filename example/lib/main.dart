@@ -50,23 +50,10 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     mockBookingService.bookingStart = newBooking.bookingStart;
     mockBookingService.bookingEnd = newBooking.bookingStart.add(const Duration(hours: 4));
 
-    // for(selectedSlot; selectedSlot<(selectedSlot+7); selectedSlot++){
-    //   if(bookingController.isSlotBooked(selectedSlot) == true){
-    //     return SnackBar(content: const Text('As 4 horas seguintes ao pedido devem estar livre.'),
-    //     );
-    //   }
-    // }
-    //se selecionamos o index 0, até o index 7 ficará travado, dando assim as 4h
-    //temos que verificar se os próximos 7 slots estão booked ou não
-    
-    // print(bookingController.isSlotBooked(selectedSlot));
-    print(bookingController.bookedSlots);
-    
 
     await Future.delayed(const Duration(seconds: 1));
     converted.add(DateTimeRange(start: newBooking.bookingStart, end: newBooking.bookingEnd));
-    // print('converted: $converted');
-    // print('${mockBookingService.toJson()} has been uploaded');
+
   }
 
   List<DateTimeRange> converted = [];
