@@ -115,7 +115,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               pauseSlotText: 'Almoço',
               hideBreakTime: false,
               loadingWidget: const Text('Carregando dados...'),
-              uploadingWidget: const CircularProgressIndicator(),
+              uploadingWidget: const SizedBox(width: 14 ,child: CircularProgressIndicator()),
               locale: 'pt_BR',
               startingDayOfWeek: StartingDayOfWeek.sunday,
               wholeDayIsBookedWidget: const Text(
