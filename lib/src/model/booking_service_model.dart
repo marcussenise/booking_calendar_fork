@@ -7,6 +7,7 @@ class BookingServiceModel {
   final String carro;
   String data;
   String horario;
+  String tipoRecarga;
   DateTime bookingStart;
   DateTime bookingEnd;
   final int serviceDuration;
@@ -25,6 +26,7 @@ class BookingServiceModel {
     required this.carro,
     required this.data,
     required this.horario,
+    required this.tipoRecarga,
     required this.bookingStart,
     required this.bookingEnd,
     required this.serviceDuration,
@@ -45,6 +47,7 @@ class BookingServiceModel {
       'carro': carro,
       'data': data,
       'horario': horario,
+      'tipoRecarga': tipoRecarga,
       'bookingStart': bookingStart,
       'bookingEnd': bookingEnd,
       'localRecarga': localRecarga,
@@ -66,6 +69,7 @@ class BookingServiceModel {
       carro: map['carro'] as String,
       data: map['data'] as String,
       horario: map['horario'] as String,
+      tipoRecarga: map['tipoRecarga'] as String,
       bookingStart: DateTime.parse(map['bookingStart'] as String),
       bookingEnd: DateTime.parse(map['bookingEnd'] as String),
       localRecarga: map['localRecarga'] as String,
@@ -96,5 +100,5 @@ class BookingServiceModel {
 
   @override
   String toString() =>
-      'BookingServiceModel(key: $key, carro: $carro, data: $data, horario: $horario, localRecarga: $localRecarga, observacao: $observacao, motivoRejeicao: $motivoRejeicao, statusRecarga: $statusRecarga, nome: $nome, telefone: $telefone, notaRecarga: $notaRecarga, antesRecargaUrl: $antesRecargaUrl, depoisRecargaUrl: $depoisRecargaUrl, serviceDuration: $serviceDuration, bookingStart: $bookingStart, bookingEnd: $bookingEnd)';
+      'BookingServiceModel(key: $key, carro: $carro, data: $data, horario: $horario, tipoRecarga: $tipoRecarga, localRecarga: $localRecarga, observacao: $observacao, motivoRejeicao: $motivoRejeicao, statusRecarga: $statusRecarga, nome: $nome, telefone: $telefone, notaRecarga: $notaRecarga, antesRecargaUrl: $antesRecargaUrl, depoisRecargaUrl: $depoisRecargaUrl, serviceDuration: $serviceDuration, bookingStart: $bookingStart, bookingEnd: $bookingEnd)';
 }
